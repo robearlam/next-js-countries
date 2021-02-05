@@ -16,7 +16,7 @@ export default function Region({regionData}: {regionData: {name, subregions}}) {
                 <h2>Regions</h2>
                 <ul>
                     {regionData.subregions.map(({ name, id }) => (
-                        <li>
+                        <li key={id}>
                             <Link href={`/region/${regionData.name}/subregion/${name}`}>
                                 <a>{name}</a>                                    
                             </Link>

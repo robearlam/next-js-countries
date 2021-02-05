@@ -1,11 +1,7 @@
 import { ApolloClient, InMemoryCache, gql } from '@apollo/client';
 
 export async function getAllRegionData() {
-    const client = new ApolloClient({
-        uri: 'https://countries-274616.ew.r.appspot.com/',
-        cache: new InMemoryCache()
-    })
-
+    const client = GetGQLClient()
     const { data } = await client.query({
         query: gql`
           {
@@ -27,11 +23,7 @@ export async function getAllRegionData() {
 }
 
 export async function getAllRegionNames() {
-    const client = new ApolloClient({
-        uri: 'https://countries-274616.ew.r.appspot.com/',
-        cache: new InMemoryCache()
-    })
-
+    const client = GetGQLClient()
     const { data } = await client.query({
         query: gql`
           {
@@ -52,21 +44,8 @@ export async function getAllRegionNames() {
     })
 }
 
-// export function getAllSubRegions() {
-//     const subRegionNames = ['subregionA', 'subregionB', 'subregionC']
-//     return subRegionNames.map(subregionName => {
-//         return {
-//             id: subregionName
-//         }
-//     })
-// }
-
 export async function getRegionData(regionName) {
-    const client = new ApolloClient({
-        uri: 'https://countries-274616.ew.r.appspot.com/',
-        cache: new InMemoryCache()
-    })
-
+    const client = GetGQLClient()
     const { data } = await client.query({
         query: gql`
           {
@@ -93,4 +72,11 @@ export async function getRegionData(regionName) {
             }
         })
     }
+}
+
+export function GetGQLClient() {
+    return new ApolloClient({
+        uri: 'https://countries-274616.ew.r.appspot.com/',
+        cache: new InMemoryCache()
+    })
 }
