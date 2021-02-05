@@ -15,7 +15,7 @@ export default function Home({allregions}:{allregions:{id: number, name:string}[
                 <ul>
                     {allregions.map(({ name, id }) => (
                         <li>
-                            <Link href={`/region/${id}`}>
+                            <Link href={`/region/${name}`}>
                                 <a>{name}</a>                                    
                             </Link>
                         </li>
