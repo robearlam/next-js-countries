@@ -6,9 +6,10 @@ import { GetStaticProps, GetStaticPaths } from 'next'
 export default function Region({regionData}: {regionData: {name, subregions}}) {
     return (
         <Layout>
-            <h1></h1>
-
             <section>
+                <Link href="/">
+                    <a>&lt;- Back</a>
+                </Link>
                 <h1>Welcome to the '{regionData.name}' region</h1>
                 <p>This region contains the following subregions listed below:</p>
             </section>
@@ -17,7 +18,7 @@ export default function Region({regionData}: {regionData: {name, subregions}}) {
                 <ul>
                     {regionData.subregions.map(({ name, id }) => (
                         <li key={id}>
-                            <Link href={`/region/${regionData.name}/subregion/${name}`}>
+                            <Link href={`/subregion/${name}`}>
                                 <a>{name}</a>                                    
                             </Link>
                         </li>
