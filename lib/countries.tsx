@@ -1,4 +1,5 @@
 import { ApolloClient, InMemoryCache, gql } from '@apollo/client';
+import { Region, Country, NameData } from './models'
 
 export async function getAllRegionData() {
     const client = GetGQLClient()
@@ -14,9 +15,9 @@ export async function getAllRegionData() {
         `
     })
 
-    return data.Region.map(regionData => {
+    return data.Region.map((regionData: Region) => {
         return {
-            id: regionData._id,
+            _id: regionData._id,
             name: regionData.name
         }
     })
@@ -35,7 +36,7 @@ export async function getAllRegionNames() {
         `
     })
 
-    return data.Region.map(regionName => {
+    return data.Region.map((regionName: NameData) => {
         return {
             params: {
                 region: regionName.name
@@ -44,7 +45,7 @@ export async function getAllRegionNames() {
     })
 }
 
-export async function getRegionData(regionName) {
+export async function getRegionData(regionName: string) {
     const client = GetGQLClient()
     const { data } = await client.query({
         query: gql`
@@ -65,16 +66,16 @@ export async function getRegionData(regionName) {
     
     return {
         name: regionName,        
-        subregions: data.Region[0].subregions.map(subregion => {
+        subregions: data.Region[0].subregions.map((subregion:Region) => {
             return {
-                id: subregion._id,
+                _id: subregion._id,
                 name: subregion.name
             }
         })
     }
 }
 
-export async function getSubRegionData(subregionName) {
+export async function getSubRegionData(subregionName: string) {
   const client = GetGQLClient()
     const { data } = await client.query({
         query: gql`
@@ -100,9 +101,9 @@ export async function getSubRegionData(subregionName) {
     return {
         name: subregionName, 
         region: data.Subregion[0].region.name,       
-        countries: data.Subregion[0].countries.map(country => {
+        countries: data.Subregion[0].countries.map((country: Country) => {
             return {
-                id: country._id,
+                _id: country._id,
                 name: country.name
             }
         })
@@ -122,7 +123,7 @@ export async function getAllSubregionNames() {
       `
   })
 
-  return data.Subregion.map(subRegionName => {
+  return data.Subregion.map((subRegionName: NameData) => {
       return {
           params: {
               subregion: subRegionName.name

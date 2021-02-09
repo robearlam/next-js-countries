@@ -2,8 +2,9 @@ import Layout from '../components/layout'
 import Link from 'next/link'
 import { getAllRegionData } from '../lib/countries'
 import { GetStaticProps } from 'next'
+import { Region } from '../lib/models'
 
-export default function Home({allregions}:{allregions:{id: number, name:string}[]}) {
+export default function Home({allregions}: {allregions:Region[]}) {
     return (
         <Layout>
             <section>
@@ -13,8 +14,8 @@ export default function Home({allregions}:{allregions:{id: number, name:string}[
             <section>
                 <h2>Regions</h2>
                 <ul>
-                    {allregions.map(({ name, id }) => (
-                        <li key={id}>
+                    {allregions.map(({ name, _id }) => (
+                        <li key={_id}>
                             <Link href={`/region/${name}`}>
                                 <a>{name}</a>                                    
                             </Link>

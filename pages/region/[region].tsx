@@ -2,8 +2,9 @@ import Layout from '../../components/layout'
 import Link from 'next/link'
 import { getRegionData, getAllRegionNames } from '../../lib/countries'
 import { GetStaticProps, GetStaticPaths } from 'next'
+import { Region } from '../../lib/models'
 
-export default function Region({regionData}: {regionData: {name, subregions}}) {
+export default function RegionList({regionData}: {regionData: Region}) {
     return (
         <Layout>
             <section>
@@ -16,8 +17,8 @@ export default function Region({regionData}: {regionData: {name, subregions}}) {
             <section>
                 <h2>Regions</h2>
                 <ul>
-                    {regionData.subregions.map(({ name, id }) => (
-                        <li key={id}>
+                    {regionData.subregions.map(({ name, _id }) => (
+                        <li key={_id}>
                             <Link href={`/subregion/${name}`}>
                                 <a>{name}</a>                                    
                             </Link>
@@ -31,7 +32,7 @@ export default function Region({regionData}: {regionData: {name, subregions}}) {
 }
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {
-    const regionData = await getRegionData(params.region as string)
+    const regionData = await getRegionData(params?.region as string)
     return {
         props: {
             regionData
